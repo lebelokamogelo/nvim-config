@@ -16,6 +16,14 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+lspconfig.clangd.setup{
+  on_attach = function (client, bufnr)
+    client.server_capabilities.signatureHelpProvider = false
+    nvlsp.on_attach(client, bufnr)
+  end,
+  capabilities = nvlsp.capabilities,
+}
+
 -- configuring single server, example: typescript
 -- lspconfig.ts_ls.setup {
 --   on_attach = nvlsp.on_attach,
